@@ -1,0 +1,55 @@
+---
+title: 'Visualizing Data Part 2: Histograms'
+author: "Chris Kozak"
+output: html_document
+---
+
+```{r message=FALSE}
+library(Lahman) #a comprehensive dataset of MLB statistics
+library(nflscrapR) #contains NFL data and a built-in API for scraping the most recent data
+library(dplyr) #package for querying data
+library(ggplot2) #one of the best packages for data visualization
+library(ggiraph) #extension that makes ggplot2 graphs interactive
+```
+
+
+##Histograms
+
+Next, we'll create some histograms using both base R as well as the ggplot2 package. This will help illustrate that, while the base package is often easier to use, and is less verbose with its code, the ggplot2 package features a richer set of options for users, and a more attractive style of rendering visualizations.
+
+This shows a histogram built with base R:
+
+```{r}
+hist(Master$weight, main="Baseball players' weight", col="blue", xlab="weight")
+```
+
+Next, we'll create one with ggplot, but first, we'll have to filter out all of the NAs (remember, we have 854) using dplyr:
+
+```{r}
+#dplyr command to filter out NAs from Master$weight
+df <- Master%>%
+  filter(!is.na(weight))%>%
+  select(weight)
+
+#ggplot command to build a histogram
+ggplot()+
+  geom_histogram(data=df, aes(x = weight),color="white",fill="blue")+
+  ggtitle("Baseball players' weight")
+```
+
+Next, we'll switch to NFL data. Like before, these next two visualizations depict the same topic, but one uses the base R package, while the other uses ggplot.
+
+```{r}
+df <- playerstats16%>%
+  group_by(playerID)%>%
+  summarize(games_per_player=sum(games))
+
+hist(df$games_per_player, col="blue", main="Games per each NFL player - 2016", xlab="games per player", labels=TRUE)
+
+ggplot()+
+  geom_histogram(data=df, aes(x = games_per_player),color="white",fill="blue",bins=16)+
+  ggtitle("Games per each NFL player - 2016")+
+  xlab("games per player")
+```
+
+This data forms a bathtub curve. We can easily see that the plurality of players spent the season sitting the bench, while the second-most frequent group played in all 16 games of the regular season. Next, we'll move on to scatterplots. 

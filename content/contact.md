@@ -8,6 +8,6 @@ menu:
 ---
 
 
-This is an example of a custom shortcode that you can put right into your content. You will need to add a form action to the the shortcode to make it work. Check out [Formspree](https://formspree.io/) for a simple, free form service. 
+Feel free to contact me anytime by e-mail using the included form, or by Twitter, GitHub, or Facebook using any of the links at the bottom of the page.
 
-{{< form-contact action="https://example.com"  >}}
+{{< form-contact action="mailto:csk0083@gmail.com"  >}}

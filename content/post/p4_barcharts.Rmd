@@ -1,0 +1,89 @@
+---
+title: 'Visualizing Data Part 4: Barcharts'
+author: "Chris Kozak"
+output: html_document
+---
+
+```{r message=FALSE}
+library(Lahman) #a comprehensive dataset of MLB statistics
+library(nflscrapR) #contains NFL data and a built-in API for scraping the most recent data
+library(dplyr) #package for querying data
+library(ggplot2) #one of the best packages for data visualization
+library(ggiraph) #extension that makes ggplot2 graphs interactive
+```
+
+
+##Barcharts
+
+To start, we'll create a new query featuring the names and number of homeruns of players from players from 1980.
+
+```{r}
+df <- Teams %>%
+  filter(yearID==1980)%>% #select rows with a yearID of 1980
+  select(name,HR)%>%  #select only the name and HR (home run) columns
+  arrange(HR) #sort the data by number of home runs
+```
+
+Before we go on, let's check the class of our df$name, using the following command:
+
+```{r}
+class(df$name)
+```
+
+This shows that it is a character vector. For our ggplot and ggiraph code to work, we'll have to convert the name to a factor, making the levels the same order as the columns. Otherwise, R will convert the team names alphabetically. We can achieve this with the following command:
+
+```{r}
+df$name <- factor(df$name, levels=df$name)
+```
+
+Now, we'll check the class again:
+```{r}
+class(df$name)
+```
+
+It worked. *df$name* is now a factor. Next, we'll create an interatctive bar chart.
+```{r}
+g <- ggplot()+
+  geom_bar_interactive(data=df, aes(x=name, y=HR, tooltip=HR, data_id=name),stat="identity",color="black",fill="blue")+
+  coord_flip()+
+  ggtitle("1980 home runs by team")+ #set the title
+  ylab("Team")+ #make the y-label "Team"
+  xlab("Homeruns") #make the x-label "Homeruns"
+  
+ggiraph(code=print(g), hover_css="fill:white;stroke:black")
+```
+
+For our barplot, let's switch from baseball data to NFL data. While basbeball data has the comprehensive Lahman package, we'll want to use the nflscrapR package for NFL data. This package pulls data directly from the NFL's API. To install this package for yourself, you have to first install devtools using **install.packages(devtools)**, then use **install_github(repo = "maksimhorowitz/nflscrapR")**.
+
+We'll begiin by querying the data to create a dataframe with the number of touchdowns per team in 2016.
+
+```{r}
+NFL_teamTDs <- playerstats16%>% #the playerstats16 table includes only stats from 2016.
+  group_by(Team)%>% #this will group all of the data by team
+  summarize(season_TDs=sum(pass.tds+rushtds))%>% #this will add up up the passing and rushing touchdowns for each team
+  filter(season_TDs>=1)%>% #we'll use this to filter out the NAs
+  arrange(season_TDs) #this will arrange the number of touchdowns from greatest to least
+```
+
+Once again, we'll convert our character data to factors to get the graph to work correctly with ggiraph's interactive features.
+
+```{r}
+NFL_teamTDs$Team <- factor(NFL_teamTDs$Team, levels=NFL_teamTDs$Team)
+```
+
+This will generate the graph itself:
+
+```{r}
+#the next six lines of code generate the parameters for our graph and store them into an object called "g"
+g <- ggplot()+
+  geom_bar_interactive(data=NFL_teamTDs, aes(x=Team, y=season_TDs, tooltip=season_TDs, data_id=Team),stat="identity",color="black",fill="blue")+
+  coord_flip()+
+  ggtitle("2016 total touchdowns by team")+
+  ylab("Team")+
+  xlab("Touchdowns")
+
+#this next line uses the ggiraph package to print object g, and add in an interactive feature that changes the stroke and fill as the user hovers their mouse over it
+ggiraph(code = print(g), hover_css = "fill:white;stroke:black")
+```
+
+Also note an error in the data caused by one inconsistency: the Jacksonville Jaguars have two abbreviations in this dataset, JAX, with 30 TDs, and JAC, with 2. The Jaguars scored 32 touchdowns for this season. If we wanted to fix this now, we could do so using dplyr and stringr, but for now, we won't worry about it. Let's move on to our last post, focused on line charts.

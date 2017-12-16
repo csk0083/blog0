@@ -1,0 +1,45 @@
+---
+title: 'Visualizing Data Part 2: Histograms'
+author: "Chris Kozak"
+output: html_document
+---
+
+
+
+<pre class="r"><code>library(Lahman) #a comprehensive dataset of MLB statistics
+library(nflscrapR) #contains NFL data and a built-in API for scraping the most recent data
+library(dplyr) #package for querying data
+library(ggplot2) #one of the best packages for data visualization
+library(ggiraph) #extension that makes ggplot2 graphs interactive</code></pre>
+<div id="histograms" class="section level2">
+<h2>Histograms</h2>
+<p>Next, we’ll create some histograms using both base R as well as the ggplot2 package. This will help illustrate that, while the base package is often easier to use, and is less verbose with its code, the ggplot2 package features a richer set of options for users, and a more attractive style of rendering visualizations.</p>
+<p>This shows a histogram built with base R:</p>
+<pre class="r"><code>hist(Master$weight, main=&quot;Baseball players&#39; weight&quot;, col=&quot;blue&quot;, xlab=&quot;weight&quot;)</code></pre>
+<p><img src="/ck650.netlify.com/post/p2_histograms_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Next, we’ll create one with ggplot, but first, we’ll have to filter out all of the NAs (remember, we have 854) using dplyr:</p>
+<pre class="r"><code>#dplyr command to filter out NAs from Master$weight
+df &lt;- Master%&gt;%
+  filter(!is.na(weight))%&gt;%
+  select(weight)
+
+#ggplot command to build a histogram
+ggplot()+
+  geom_histogram(data=df, aes(x = weight),color=&quot;white&quot;,fill=&quot;blue&quot;)+
+  ggtitle(&quot;Baseball players&#39; weight&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="/ck650.netlify.com/post/p2_histograms_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Next, we’ll switch to NFL data. Like before, these next two visualizations depict the same topic, but one uses the base R package, while the other uses ggplot.</p>
+<pre class="r"><code>df &lt;- playerstats16%&gt;%
+  group_by(playerID)%&gt;%
+  summarize(games_per_player=sum(games))
+
+hist(df$games_per_player, col=&quot;blue&quot;, main=&quot;Games per each NFL player - 2016&quot;, xlab=&quot;games per player&quot;, labels=TRUE)</code></pre>
+<p><img src="/ck650.netlify.com/post/p2_histograms_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>ggplot()+
+  geom_histogram(data=df, aes(x = games_per_player),color=&quot;white&quot;,fill=&quot;blue&quot;,bins=16)+
+  ggtitle(&quot;Games per each NFL player - 2016&quot;)+
+  xlab(&quot;games per player&quot;)</code></pre>
+<p><img src="/ck650.netlify.com/post/p2_histograms_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<p>This data forms a bathtub curve. We can easily see that the plurality of players spent the season sitting the bench, while the second-most frequent group played in all 16 games of the regular season. Next, we’ll move on to scatterplots.</p>
+</div>

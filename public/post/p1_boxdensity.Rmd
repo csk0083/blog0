@@ -1,0 +1,51 @@
+---
+title: 'Visualizing Data Part 1: Box & Density Plots'
+author: "Chris Kozak"
+output: html_document
+---
+
+##Introduction
+
+This if the first of a five-part series of posts, in which we'll go over some of the basics of querying data with dplyr, and building visualizations with ggplot2. These are two of the most popular packages from Hadley Wickham's Tidyverse, which are all built with the same underlying principles and APIs. We'll also compare and contrast the visualizations from the base R package with those from the ggplot2 package, and the different syntax required of the two packages.
+
+```{r message=FALSE}
+library(Lahman) #a comprehensive dataset of MLB statistics
+library(nflscrapR) #contains NFL data and a built-in API for scraping the most recent data
+library(dplyr) #package for querying data
+library(ggplot2) #one of the best packages for data visualization
+library(ggiraph) #extension that makes ggplot2 graphs interactive
+```
+
+##Boxplot
+
+We'll begin by creating simple visualizations of a one-dimensional distribution of data: MLB players' weights. First, let's take a quick peek at how this data is distributed using the *summary()* call.
+
+```{r}
+summary(Master$weight)
+```
+
+*Master$weight* above specifies that we are selecting the *weight* column/vector from the *Master* table in the Lahman package, which we already loaded using the *library()* command. This presents a tidy set of statistics. We can quickly see the lightest MLB player ever weighed 65 pounds, while the heaviest weighed 320. Another useful features is that it tells us we have 854 missing cells of data (or NAs).
+
+Now, let's visualize this data using the boxplot command. We'll begin by creating a relatively simply boxplot using base R's *boxplot()* call. 
+
+```{r}
+boxplot(x=Master$weight)
+```
+
+This generates a very bare-bones boxplot. Now, let's run the *boxplot()* call again, but with a few more options to make a more appealing visualization. The *horizontal = TRUE* command flips the plot on its side, making it easier to read. *col* specifies a color, while *main* allows us to specify a title. Finally, *pch=20* changes the point character from the default large empty circle, to a small filled one.
+
+```{r}
+boxplot(x=Master$weight, horizontal = T, col = "blue", main = "Baseball players' weights", pch=20)
+```
+
+
+##Density plot
+
+Next, we'll create a density plot using the base R package, and the same weight data we used in the previous visualization.
+
+```{r warning=FALSE}
+weight2 <- na.omit(Master$weight) #since plot(density()) won't work with NAs, we'll have to filter them out first
+plot(density(weight2))
+```
+
+In our next post, we'll go over histograms.

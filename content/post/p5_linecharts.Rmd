@@ -1,0 +1,77 @@
+---
+title: 'Visualizing Data Part 5: Line Charts'
+author: "Chris Kozak"
+output: html_document
+---
+
+```{r message=FALSE}
+library(Lahman) #a comprehensive dataset of MLB statistics
+library(nflscrapR) #contains NFL data and a built-in API for scraping the most recent data
+library(dplyr) #package for querying data
+library(ggplot2) #one of the best packages for data visualization
+library(ggiraph) #extension that makes ggplot2 graphs interactive
+```
+
+
+##Line charts
+
+Next, we want to create a time-series chart of Aaron Rodgers' touchdowns per season, but this could be very difficult since Aaron Rodgers' data is spread out across multiple tables in the nflscrapR package, each table representing a different season. The **playerstats09** table has his stats from the 2009 season, **playerstats10** has his stats from 2010, and so on. To get all of the data for Aaron Rodgers', we will have to create a *loop* -- a block of code that essentially repeats itself several times over. This loop will iterate through each of the tables of data, pull only the rows for Aaron Rodgers, then bind -- or add -- those rows to an existing dataframe.
+
+We'll start by using dplyr to filter his stats from only the 2009 season.
+
+```{r}
+Rodgers_stats <- playerstats09 %>% #this establishes a dataframe from playerstats09 that will be used in the upcoming loop
+  filter(name=="A.Rodgers")
+```
+
+Now, we'll use the following for loop to iterate through all of the data from 2010 to 2016:
+
+```{r}
+for(i in seq(from = 10, to = 16)) { #i will iterate as 10, 11, 12 ... 16
+  
+  k <- paste("playerstats",i,sep="") #this will add i onto the "playerstats" string, for example, making playstersi into playerstats10 on the first iteration
+  playerstatsi <- get(k) #the get function converts a string ("playerstats10") into an object (playerstats10) that R will recognize
+  
+  Rodgers_year <- playerstatsi %>%
+    filter(name=="A.Rodgers")  #this takes our playerstatsi object and selects only the rows with A.Rodgers' name
+  
+  Rodgers_stats <- rbind(Rodgers_stats, Rodgers_year) #add the rows from Rodgers_year to the existing Rodgers_stats dataframe, which we created before running this loop
+  #cat("Pulled ", dim(Rodgers_year)[1], " rows of data from ", k, ". Rodgers_stats dataframe is now ", dim(Rodgers_stats)[1]," rows long...\n", sep="") #This line would will tell the user what the loop is doing as it is doing it. It's useful when running the code itself, but since we're posting this to to a static Web site, we'll comment it out.
+}
+```
+
+With the hard part out of the way, we can adapt following code to make a line chart of Aaron Rodgers' touchdown data.
+
+```{r}
+df <- Rodgers_stats%>%
+  group_by(Season)%>%
+  summarize(season_TDs=sum(pass.tds+rushtds))
+
+g <- ggplot()+
+  geom_line(data=df, aes(x=Season, y=season_TDs))+
+  ggtitle("Aaron Rodgers' TDs by year")+
+  geom_point_interactive(data=df, aes(x=Season, y=season_TDs,tooltip=season_TDs))+
+  ylab("Touchdown Passes")
+
+ggiraph(code=print(g), hover_css="fill:white;stroke:red")
+```
+  
+The chart showed that Rodgers posted an unusually low number of touchdown passes in 2013: only 17. And why might that be? To find out, let's run another dplyr function to show us the number of games he played per regular season. Note that this is almost the exact same as the dplyr function above.
+
+```{r}
+df <- Rodgers_stats %>% 
+  group_by(Season) %>% 
+  summarize(games_per_season=sum(games))
+```
+
+Note that this is almost the same as dplyr function above. The only change we made was to summarize by "games" -- as in the number of games that Rodgers played in -- rather than **"pass.tds+rushtds"**. Now, let's take a look at the dataframe:
+
+```{r}
+df
+```
+
+Just as expected, Rodgers posted a lower number of passing touchdowns in the 2013 season because he was out for almost half the season. Coincidentally, he was out due to a broken clavicle -- the same injury he has now in the 2017 season.
+
+##Summary
+
+Hopefully, this series of posts helped illustrate for new R users how ggplot's syntax and visualizations differ from base R's graphics package, as well as how to use the basic and intermediate features of dplyr.

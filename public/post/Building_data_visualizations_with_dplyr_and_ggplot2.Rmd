@@ -1,0 +1,301 @@
+---
+title: "Visualizing Data Part 1: Box & Density Plots"
+author: "Chris Kozak"
+output: html_document
+---
+
+##Introduction
+
+In this post, we'll go over some of the basics of querying data with dplyr, and building visualizations with ggplot2. These are two of the most popular packages from Hadley Wickham's Tidyverse, which are all built with the same underlying principles and APIs. We'll also compare and contrast the visualizations from the base R package with those from the ggplot2 package, and the different syntax required of the two packages.
+
+```{r message=FALSE}
+library(Lahman) #a comprehensive dataset of MLB statistics
+library(nflscrapR) #contains NFL data and a built-in API for scraping the most recent data
+library(dplyr) #package for querying data
+library(ggplot2) #one of the best packages for data visualization
+library(ggiraph) #extension that makes ggplot2 graphs interactive
+```
+
+##Boxplot
+
+We'll begin by creating simple visualizations of a one-dimensional distribution of data: MLB players' weights. First, let's take a quick peek at how this data is distributed using the *summary()* call.
+
+```{r}
+summary(Master$weight)
+```
+
+*Master$weight* above specifies that we are selecting the *weight* column/vector from the *Master* table in the Lahman package, which we already loaded using the *library()* command. This presents a tidy set of statistics. We can quickly see the lightest MLB player ever weighed 65 pounds, while the heaviest weighed 320. Another useful features is that it tells us we have 854 missing cells of data (or NAs).
+
+Now, let's visualize this data using the boxplot command. We'll begin by creating a relatively simply boxplot using base R's *boxplot()* call. 
+
+```{r}
+boxplot(x=Master$weight)
+```
+
+This generates a very bare-bones boxplot. Now, let's run the *boxplot()* call again, but with a few more options to make a more appealing visualization. The *horizontal = TRUE* command flips the plot on its side, making it easier to read. *col* specifies a color, while *main* allows us to specify a title. Finally, *pch=20* changes the point character from the default large empty circle, to a small filled one.
+
+```{r}
+boxplot(x=Master$weight, horizontal = T, col = "blue", main = "Baseball players' weights", pch=20)
+```
+
+
+##Density plot
+
+Next, we'll create a density plot using the base R package, and the same weight data we used in the previous visualization.
+
+```{r warning=FALSE}
+weight2 <- na.omit(Master$weight) #since plot(density()) won't work with NAs, we'll have to filter them out first
+plot(density(weight2))
+```
+
+
+##Histograms
+
+Next, we'll create some histograms using both base R as well as the ggplot2 package. This will help illustrate that, while the base package is often easier to use, and is less verbose with its code, the ggplot2 package features a richer set of options for users, and a more attractive style of rendering visualizations.
+
+This shows a histogram built with base R:
+
+```{r}
+hist(Master$weight, main="Baseball players' weight", col="blue", xlab="weight")
+```
+
+Next, we'll create one with ggplot, but first, we'll have to filter out all of the NAs (remember, we have 854) using dplyr:
+
+```{r}
+#dplyr command to filter out NAs from Master$weight
+df <- Master%>%
+  filter(!is.na(weight))%>%
+  select(weight)
+
+#ggplot command to build a histogram
+ggplot()+
+  geom_histogram(data=df, aes(x = weight),color="white",fill="blue")+
+  ggtitle("Baseball players' weight")
+```
+
+Next, we'll switch to NFL data. Like before, these next two visualizations depict the same topic, but one uses the base R package, while the other uses ggplot.
+
+```{r}
+df <- playerstats16%>%
+  group_by(playerID)%>%
+  summarize(games_per_player=sum(games))
+
+hist(df$games_per_player, col="blue", main="Games per each NFL player - 2016", xlab="games per player", labels=TRUE)
+
+ggplot()+
+  geom_histogram(data=df, aes(x = games_per_player),color="white",fill="blue",bins=16)+
+  ggtitle("Games per each NFL player - 2016")+
+  xlab("games per player")
+```
+
+This data forms a bathtub curve. We can easily see that the plurality of players spent the season sitting the bench, while the second-most frequent group played in all 16 games of the regular season. Next, we'll move on to barcharts. 
+
+
+##Scatterplots
+
+Next, we'll create some scatterplots using both base R and ggplot to visualize both baseball and football data. As usual, we'll begin by filtering the data with dplyr. The following query will select the career homeruns and career strikeouts of all players, and filter it down to only those players with more than 400 homeruns.
+
+```{r}
+bdat1d <- Batting%>%
+  group_by(playerID)%>%
+  summarize(career_HR=sum(HR),career_SO=sum(SO))%>%
+  filter(career_HR>=400)
+
+head(bdat1d)
+```
+  
+At this point, we have the playerIDs, but they list, for example, Hank Aaron as "aaronha01" and Jeff Bagwell as "bagweje01." We want a dataframe featuring these players with their actual names. To get that, we'll need to use the following **inner_join** command from dplyr to merge our new data frame with the names from the Master table.
+
+```{r}
+HR_vs_SO <- inner_join(bdat1d,Master,by=c("playerID"))%>% #this has the bdat1d dataframe and Lahman Master dataframe do an inner_join on playerID
+  select(nameFirst,nameLast,career_HR,career_SO) #this selects only the first name, last name, career homeruns, and career strikeouts from this table, to create the new HR_vs_SO dataframe
+
+head(HR_vs_SO)
+```
+
+Finally, we'll use the paste command to put the first name and last name together into a new column.
+
+```{r}
+HR_vs_SO$name <- paste(HR_vs_SO$nameFirst,HR_vs_SO$nameLast)
+
+head(HR_vs_SO)
+```
+
+Next, we'll move on to the fun part: visualizations. Here's a scatterplot generated using base R:
+
+```{r}
+plot(HR_vs_SO$career_SO, HR_vs_SO$career_HR, xlab="career strikeouts", ylab="career homeruns", main="Career Homeruns vs Strikeouts for Great Hitters")
+```
+
+And the same scatterplot generated using ggplot2:
+
+```{r}
+g<-ggplot()+
+  geom_point_interactive(data=HR_vs_SO,aes(x=career_SO, y=career_HR, tooltip=name,data_id=nameLast))+
+  ggtitle("Career Homeruns vs Strikeouts for Great Hitters")+
+  xlab("career strikeouts")+
+  ylab("career homeruns")
+
+ggiraph(code = print(g), hover_css = "fill:white;stroke:black")
+```
+
+With the ggplot scatterplot, we can hover over each datapoint and see, for example, that Barry Bonds has the most career homeruns (762), and a respectably small number of strikeouts (1539). Now, we'll do two similar scatterplots featuring NFL passing touchdowns vs interceptions for the 2016 season.
+
+```{r}
+NFLq1 <- playerstats16%>%
+  group_by(name)%>%
+  summarize(season_TDs=sum(pass.tds),season_INTs=sum(pass.ints))%>%
+  filter(season_TDs>=1)
+
+plot(NFLq1$season_TDs, NFLq1$season_INTs, main="Passing Touchdowns vs Interceptions (2016)", xlab="2016 Passing TDs", ylab="2016 INTs")
+
+g<-ggplot()+
+  geom_point_interactive(data=NFLq1,aes(x=season_TDs, y=season_INTs, tooltip=name))+
+  ggtitle("Passing Touchdowns vs Interceptions (2016)")+
+  xlab("2016 Passing TDs")+
+  ylab("2016 INTs")
+
+ggiraph(code = print(g), hover_css = "fill:white;stroke:black")
+
+```
+
+
+
+##Barcharts
+
+To start, we'll create a new query featuring the names and number of homeruns of players from players from 1980.
+
+```{r}
+df <- Teams %>%
+  filter(yearID==1980)%>% #select rows with a yearID of 1980
+  select(name,HR)%>%  #select only the name and HR (home run) columns
+  arrange(HR) #sort the data by number of home runs
+```
+
+Before we go on, let's check the class of our df$name, using the following command:
+
+```{r}
+class(df$name)
+```
+
+This shows that it is a character vector. For our ggplot and ggiraph code to work, we'll have to convert the name to a factor, making the levels the same order as the columns. Otherwise, R will convert the team names alphabetically. We can achieve this with the following command:
+
+```{r}
+df$name <- factor(df$name, levels=df$name)
+```
+
+Now, we'll check the class again:
+```{r}
+class(df$name)
+```
+
+It worked. *df$name* is now a factor. Next, we'll create an interatctive bar chart.
+```{r}
+g <- ggplot()+
+  geom_bar_interactive(data=df, aes(x=name, y=HR, tooltip=HR, data_id=name),stat="identity",color="black",fill="blue")+
+  coord_flip()+
+  ggtitle("1980 home runs by team")+ #set the title
+  ylab("Team")+ #make the y-label "Team"
+  xlab("Homeruns") #make the x-label "Homeruns"
+  
+ggiraph(code=print(g), hover_css="fill:white;stroke:black")
+```
+
+For our barplot, let's switch from baseball data to NFL data. While basbeball data has the comprehensive Lahman package, we'll want to use the nflscrapR package for NFL data. This package pulls data directly from the NFL's API. To install this package for yourself, you have to first install devtools using **install.packages(devtools)**, then use **install_github(repo = "maksimhorowitz/nflscrapR")**.
+
+We'll begiin by querying the data to create a dataframe with the number of touchdowns per team in 2016.
+
+```{r}
+NFL_teamTDs <- playerstats16%>% #the playerstats16 table includes only stats from 2016.
+  group_by(Team)%>% #this will group all of the data by team
+  summarize(season_TDs=sum(pass.tds+rushtds))%>% #this will add up up the passing and rushing touchdowns for each team
+  filter(season_TDs>=1)%>% #we'll use this to filter out the NAs
+  arrange(season_TDs) #this will arrange the number of touchdowns from greatest to least
+```
+
+Once again, we'll convert our character data to factors to get the graph to work correctly with ggiraph's interactive features.
+
+```{r}
+NFL_teamTDs$Team <- factor(NFL_teamTDs$Team, levels=NFL_teamTDs$Team)
+```
+
+This will generate the graph itself:
+
+```{r}
+#the next six lines of code generate the parameters for our graph and store them into an object called "g"
+g <- ggplot()+
+  geom_bar_interactive(data=NFL_teamTDs, aes(x=Team, y=season_TDs, tooltip=season_TDs, data_id=Team),stat="identity",color="black",fill="blue")+
+  coord_flip()+
+  ggtitle("2016 total touchdowns by team")+
+  ylab("Team")+
+  xlab("Touchdowns")
+
+#this next line uses the ggiraph package to print object g, and add in an interactive feature that changes the stroke and fill as the user hovers their mouse over it
+ggiraph(code = print(g), hover_css = "fill:white;stroke:black")
+```
+
+Also note an error in the data caused by one inconsistency: the Jacksonville Jaguars have two abbreviations in this dataset, JAX, with 30 TDs, and JAC, with 2. The Jaguars scored 32 touchdowns for this season. If we wanted to fix this now, we could do so using dplyr and stringr, but for now, we won't worry about it.
+
+
+##Line charts
+
+Next, we want to create a time-series chart of Aaron Rodgers' touchdowns per season, but this could be very difficult since Aaron Rodgers' data is spread out across multiple tables in the nflscrapR package, each table representing a different season. The **playerstats09** table has his stats from the 2009 season, **playerstats10** has his stats from 2010, and so on. To get all of the data for Aaron Rodgers', we will have to create a *loop* -- a block of code that essentially repeats itself several times over. This loop will iterate through each of the tables of data, pull only the rows for Aaron Rodgers, then bind -- or add -- those rows to an existing dataframe.
+
+We'll start by using dplyr to filter his stats from only the 2009 season.
+
+```{r}
+Rodgers_stats <- playerstats09 %>% #this establishes a dataframe from playerstats09 that will be used in the upcoming loop
+  filter(name=="A.Rodgers")
+```
+
+Now, we'll use the following for loop to iterate through all of the data from 2010 to 2016:
+
+```{r}
+for(i in seq(from = 10, to = 16)) { #i will iterate as 10, 11, 12 ... 16
+  
+  k <- paste("playerstats",i,sep="") #this will add i onto the "playerstats" string, for example, making playstersi into playerstats10 on the first iteration
+  playerstatsi <- get(k) #the get function converts a string ("playerstats10") into an object (playerstats10) that R will recognize
+  
+  Rodgers_year <- playerstatsi %>%
+    filter(name=="A.Rodgers")  #this takes our playerstatsi object and selects only the rows with A.Rodgers' name
+  
+  Rodgers_stats <- rbind(Rodgers_stats, Rodgers_year) #add the rows from Rodgers_year to the existing Rodgers_stats dataframe, which we created before running this loop
+  #cat("Pulled ", dim(Rodgers_year)[1], " rows of data from ", k, ". Rodgers_stats dataframe is now ", dim(Rodgers_stats)[1]," rows long...\n", sep="") #This line would will tell the user what the loop is doing as it is doing it. It's useful when running the code itself, but since we're posting this to to a static Web site, we'll comment it out.
+}
+```
+
+With the hard part out of the way, we can adapt following code to make a line chart of Aaron Rodgers' touchdown data.
+
+```{r}
+df <- Rodgers_stats%>%
+  group_by(Season)%>%
+  summarize(season_TDs=sum(pass.tds+rushtds))
+
+g <- ggplot()+
+  geom_line(data=df, aes(x=Season, y=season_TDs))+
+  ggtitle("Aaron Rodgers' TDs by year")+
+  geom_point_interactive(data=df, aes(x=Season, y=season_TDs,tooltip=season_TDs))+
+  ylab("Touchdown Passes")
+
+ggiraph(code=print(g), hover_css="fill:white;stroke:red")
+```
+  
+The chart showed that Rodgers posted an unusually low number of touchdown passes in 2013: only 17. And why might that be? To find out, let's run another dplyr function to show us the number of games he played per regular season. Note that this is almost the exact same as the dplyr function above.
+
+```{r}
+df <- Rodgers_stats %>% 
+  group_by(Season) %>% 
+  summarize(games_per_season=sum(games))
+```
+
+Note that this is almost the same as dplyr function above. The only change we made was to summarize by "games" -- as in the number of games that Rodgers played in -- rather than **"pass.tds+rushtds"**. Now, let's take a look at the dataframe:
+
+```{r}
+df
+```
+
+Just as expected, Rodgers posted a lower number of passing touchdowns in the 2013 season because he was out for almost half the season. Coincidentally, he was out due to a broken clavicle -- the same injury he has now in the 2017 season.
+
+##Summary
+
+Hopefully, this series of posts helped illustrate for new R users how ggplot's syntax and visualizations differ from base R's graphics package, as well as how to use the basic and intermediate features of dplyr.
