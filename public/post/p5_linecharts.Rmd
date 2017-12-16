@@ -1,6 +1,7 @@
 ---
 title: 'Visualizing Data Part 5: Line Charts'
 author: "Chris Kozak"
+date: "October 22, 2017"
 output: html_document
 ---
 

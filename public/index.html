@@ -29,7 +29,7 @@
 
 
 
-<meta property="og:updated_time" content="2017-04-14T11:25:05-04:00"/>
+
 
 
 
@@ -157,19 +157,13 @@
           <div class="relative w-100 mb4">
             
 <article class="bb b--black-10">
-  <a class="db pv4 ph3 ph0-l no-underline dark-gray dim" href="ck650.netlify.com/post/chapter-6/">
+  <a class="db pv4 ph3 ph0-l no-underline dark-gray dim" href="ck650.netlify.com/post/p1_boxdensity/">
     <div class="flex flex-column flex-row-ns">
       
-          
-        
-        <div class="pr3-ns mb4 mb0-ns w-100 w-40-ns">
-          <img src="ck650.netlify.com/images/esmeralda.jpg" class="db" alt="image from Chapter VI: Lorem Ipsum">
-        </div>
-      
-      <div class="w-100 w-60-ns pl3-ns">
-        <h1 class="f3 fw1 athelas mt0 lh-title">Chapter VI: Lorem Ipsum</h1>
+      <div class="w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">Visualizing Data Part 1: Box &amp; Density Plots</h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque nulla, vulputate nec enim ac, feugiat dictum purus. Donec pellentesque suscipit vulputate. Nunc a arcu magna. Nullam maximus nec nulla id pretium. Fusce in turpis volutpat, consectetur est mattis, mattis libero. Nullam in dui eget justo vestibulum iaculis. Maecenas vitae augue fringilla, fermentum ante quis, venenatis dui. Vestibulum ut volutpat metus, sit amet congue est. Sed gravida magna sed sapien tempor gravida.
+          IntroductionThis if the first of a five-part series of posts, in which we’ll go over some of the basics of querying data with dplyr, and building visualizations with ggplot2. These are two of the most popular packages from Hadley Wickham’s Tidyverse, which are all built with the same underlying principles and APIs. We’ll also compare and contrast the visualizations from the base R package with those from the ggplot2 package, and the different syntax required of the two packages.
         </div>
         
       </div>
@@ -182,13 +176,13 @@
           <div class="relative w-100 mb4">
             
 <article class="bb b--black-10">
-  <a class="db pv4 ph3 ph0-l no-underline dark-gray dim" href="ck650.netlify.com/post/chapter-5/">
+  <a class="db pv4 ph3 ph0-l no-underline dark-gray dim" href="ck650.netlify.com/post/p2_histograms/">
     <div class="flex flex-column flex-row-ns">
       
       <div class="w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">Chapter V: Lorem Ipsum</h1>
+        <h1 class="f3 fw1 athelas mt0 lh-title">Visualizing Data Part 2: Histograms</h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque nulla, vulputate nec enim ac, feugiat dictum purus. Donec pellentesque suscipit vulputate. Nunc a arcu magna. Nullam maximus nec nulla id pretium. Fusce in turpis volutpat, consectetur est mattis, mattis libero. Nullam in dui eget justo vestibulum iaculis. Maecenas vitae augue fringilla, fermentum ante quis, venenatis dui. Vestibulum ut volutpat metus, sit amet congue est. Sed gravida magna sed sapien tempor gravida.
+          library(Lahman) #a comprehensive dataset of MLB statisticslibrary(nflscrapR) #contains NFL data and a built-in API for scraping the most recent datalibrary(dplyr) #package for querying datalibrary(ggplot2) #one of the best packages for data visualizationlibrary(ggiraph) #extension that makes ggplot2 graphs interactiveHistogramsNext, we’ll create some histograms using both base R as well as the ggplot2 package. This will help illustrate that, while the base package is often easier to use, and is less verbose with its code, the ggplot2 package features a richer set of options for users, and a more attractive style of rendering visualizations.
         </div>
         
       </div>
@@ -201,13 +195,13 @@
           <div class="relative w-100 mb4">
             
 <article class="bb b--black-10">
-  <a class="db pv4 ph3 ph0-l no-underline dark-gray dim" href="ck650.netlify.com/post/chapter-4/">
+  <a class="db pv4 ph3 ph0-l no-underline dark-gray dim" href="ck650.netlify.com/post/p3_scatterplots/">
     <div class="flex flex-column flex-row-ns">
       
       <div class="w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">Chapter IV: Lorem Ipsum</h1>
+        <h1 class="f3 fw1 athelas mt0 lh-title">Visualizing Data Part 3: Scatterplots</h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque nulla, vulputate nec enim ac, feugiat dictum purus. Donec pellentesque suscipit vulputate. Nunc a arcu magna. Nullam maximus nec nulla id pretium. Fusce in turpis volutpat, consectetur est mattis, mattis libero. Nullam in dui eget justo vestibulum iaculis. Maecenas vitae augue fringilla, fermentum ante quis, venenatis dui. Vestibulum ut volutpat metus, sit amet congue est. Sed gravida magna sed sapien tempor gravida.
+          library(Lahman) #a comprehensive dataset of MLB statisticslibrary(nflscrapR) #contains NFL data and a built-in API for scraping the most recent datalibrary(dplyr) #package for querying datalibrary(ggplot2) #one of the best packages for data visualizationlibrary(ggiraph) #extension that makes ggplot2 graphs interactiveScatterplotsNext, we’ll create some scatterplots using both base R and ggplot to visualize both baseball and football data. As usual, we’ll begin by filtering the data with dplyr.
         </div>
         
       </div>
@@ -225,26 +219,14 @@
         
         
           <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="ck650.netlify.com/post/chapter-3/" class="link black dim">
-              Chapter III: Lorem Ipsum
+            <a href="ck650.netlify.com/post/p4_barcharts/" class="link black dim">
+              Visualizing Data Part 4: Barcharts
             </a>
           </h2>
         
           <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="ck650.netlify.com/post/chapter-2/" class="link black dim">
-              Chapter II: Lorem Ipsum
-            </a>
-          </h2>
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="ck650.netlify.com/post/chapter-1/" class="link black dim">
-              Chapter I: Lorem Ipsum
-            </a>
-          </h2>
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="ck650.netlify.com/post/p1_boxdensity/" class="link black dim">
-              Visualizing Data Part 1: Box &amp; Density Plots
+            <a href="ck650.netlify.com/post/p5_linecharts/" class="link black dim">
+              Visualizing Data Part 5: Line Charts
             </a>
           </h2>
         

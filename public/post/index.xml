@@ -12,60 +12,6 @@
     
     
     <item>
-      <title>Chapter VI: Lorem Ipsum</title>
-      <link>ck650.netlify.com/post/chapter-6/</link>
-      <pubDate>Fri, 14 Apr 2017 11:25:05 -0400</pubDate>
-      
-      <guid>ck650.netlify.com/post/chapter-6/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque nulla, vulputate nec enim ac, feugiat dictum purus. Donec pellentesque suscipit vulputate. Nunc a arcu magna. Nullam maximus nec nulla id pretium. Fusce in turpis volutpat, consectetur est mattis, mattis libero. Nullam in dui eget justo vestibulum iaculis. Maecenas vitae augue fringilla, fermentum ante quis, venenatis dui. Vestibulum ut volutpat metus, sit amet congue est. Sed gravida magna sed sapien tempor gravida.</description>
-    </item>
-    
-    <item>
-      <title>Chapter V: Lorem Ipsum</title>
-      <link>ck650.netlify.com/post/chapter-5/</link>
-      <pubDate>Thu, 13 Apr 2017 11:15:58 -0400</pubDate>
-      
-      <guid>ck650.netlify.com/post/chapter-5/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque nulla, vulputate nec enim ac, feugiat dictum purus. Donec pellentesque suscipit vulputate. Nunc a arcu magna. Nullam maximus nec nulla id pretium. Fusce in turpis volutpat, consectetur est mattis, mattis libero. Nullam in dui eget justo vestibulum iaculis. Maecenas vitae augue fringilla, fermentum ante quis, venenatis dui. Vestibulum ut volutpat metus, sit amet congue est. Sed gravida magna sed sapien tempor gravida.</description>
-    </item>
-    
-    <item>
-      <title>Chapter IV: Lorem Ipsum</title>
-      <link>ck650.netlify.com/post/chapter-4/</link>
-      <pubDate>Wed, 12 Apr 2017 11:14:48 -0400</pubDate>
-      
-      <guid>ck650.netlify.com/post/chapter-4/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque nulla, vulputate nec enim ac, feugiat dictum purus. Donec pellentesque suscipit vulputate. Nunc a arcu magna. Nullam maximus nec nulla id pretium. Fusce in turpis volutpat, consectetur est mattis, mattis libero. Nullam in dui eget justo vestibulum iaculis. Maecenas vitae augue fringilla, fermentum ante quis, venenatis dui. Vestibulum ut volutpat metus, sit amet congue est. Sed gravida magna sed sapien tempor gravida.</description>
-    </item>
-    
-    <item>
-      <title>Chapter III: Lorem Ipsum</title>
-      <link>ck650.netlify.com/post/chapter-3/</link>
-      <pubDate>Tue, 11 Apr 2017 11:13:32 -0400</pubDate>
-      
-      <guid>ck650.netlify.com/post/chapter-3/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque nulla, vulputate nec enim ac, feugiat dictum purus. Donec pellentesque suscipit vulputate. Nunc a arcu magna. Nullam maximus nec nulla id pretium. Fusce in turpis volutpat, consectetur est mattis, mattis libero. Nullam in dui eget justo vestibulum iaculis. Maecenas vitae augue fringilla, fermentum ante quis, venenatis dui. Vestibulum ut volutpat metus, sit amet congue est. Sed gravida magna sed sapien tempor gravida.</description>
-    </item>
-    
-    <item>
-      <title>Chapter II: Lorem Ipsum</title>
-      <link>ck650.netlify.com/post/chapter-2/</link>
-      <pubDate>Mon, 10 Apr 2017 11:00:59 -0400</pubDate>
-      
-      <guid>ck650.netlify.com/post/chapter-2/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque nulla, vulputate nec enim ac, feugiat dictum purus. Donec pellentesque suscipit vulputate. Nunc a arcu magna. Nullam maximus nec nulla id pretium. Fusce in turpis volutpat, consectetur est mattis, mattis libero. Nullam in dui eget justo vestibulum iaculis. Maecenas vitae augue fringilla, fermentum ante quis, venenatis dui. Vestibulum ut volutpat metus, sit amet congue est. Sed gravida magna sed sapien tempor gravida.</description>
-    </item>
-    
-    <item>
-      <title>Chapter I: Lorem Ipsum</title>
-      <link>ck650.netlify.com/post/chapter-1/</link>
-      <pubDate>Sun, 09 Apr 2017 10:58:08 -0400</pubDate>
-      
-      <guid>ck650.netlify.com/post/chapter-1/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum neque nulla, vulputate nec enim ac, feugiat dictum purus. Donec pellentesque suscipit vulputate. Nunc a arcu magna. Nullam maximus nec nulla id pretium. Fusce in turpis volutpat, consectetur est mattis, mattis libero. Nullam in dui eget justo vestibulum iaculis. Maecenas vitae augue fringilla, fermentum ante quis, venenatis dui. Vestibulum ut volutpat metus, sit amet congue est. Sed gravida magna sed sapien tempor gravida.</description>
-    </item>
-    
-    <item>
       <title>Visualizing Data Part 1: Box &amp; Density Plots</title>
       <link>ck650.netlify.com/post/p1_boxdensity/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
