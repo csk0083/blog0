@@ -2,58 +2,58 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Articles on Chris Kozak&#39;s Data Science Blog</title>
-    <link>/ck650.netlify.com/post/</link>
+    <link>/post/</link>
     <description>Recent content in Articles on Chris Kozak&#39;s Data Science Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 02 Mar 2017 12:00:00 -0500</lastBuildDate>
     
-	<atom:link href="/ck650.netlify.com/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Visualizing Data Part 1: Box &amp; Density Plots</title>
-      <link>/ck650.netlify.com/post/p1_boxdensity/</link>
+      <link>/post/p1_boxdensity/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/ck650.netlify.com/post/p1_boxdensity/</guid>
+      <guid>/post/p1_boxdensity/</guid>
       <description>IntroductionThis if the first of a five-part series of posts, in which we’ll go over some of the basics of querying data with dplyr, and building visualizations with ggplot2. These are two of the most popular packages from Hadley Wickham’s Tidyverse, which are all built with the same underlying principles and APIs. We’ll also compare and contrast the visualizations from the base R package with those from the ggplot2 package, and the different syntax required of the two packages.</description>
     </item>
     
     <item>
       <title>Visualizing Data Part 2: Histograms</title>
-      <link>/ck650.netlify.com/post/p2_histograms/</link>
+      <link>/post/p2_histograms/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/ck650.netlify.com/post/p2_histograms/</guid>
+      <guid>/post/p2_histograms/</guid>
       <description>library(Lahman) #a comprehensive dataset of MLB statisticslibrary(nflscrapR) #contains NFL data and a built-in API for scraping the most recent datalibrary(dplyr) #package for querying datalibrary(ggplot2) #one of the best packages for data visualizationlibrary(ggiraph) #extension that makes ggplot2 graphs interactiveHistogramsNext, we’ll create some histograms using both base R as well as the ggplot2 package. This will help illustrate that, while the base package is often easier to use, and is less verbose with its code, the ggplot2 package features a richer set of options for users, and a more attractive style of rendering visualizations.</description>
     </item>
     
     <item>
       <title>Visualizing Data Part 3: Scatterplots</title>
-      <link>/ck650.netlify.com/post/p3_scatterplots/</link>
+      <link>/post/p3_scatterplots/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/ck650.netlify.com/post/p3_scatterplots/</guid>
+      <guid>/post/p3_scatterplots/</guid>
       <description>library(Lahman) #a comprehensive dataset of MLB statisticslibrary(nflscrapR) #contains NFL data and a built-in API for scraping the most recent datalibrary(dplyr) #package for querying datalibrary(ggplot2) #one of the best packages for data visualizationlibrary(ggiraph) #extension that makes ggplot2 graphs interactiveScatterplotsNext, we’ll create some scatterplots using both base R and ggplot to visualize both baseball and football data. As usual, we’ll begin by filtering the data with dplyr.</description>
     </item>
     
     <item>
       <title>Visualizing Data Part 4: Barcharts</title>
-      <link>/ck650.netlify.com/post/p4_barcharts/</link>
+      <link>/post/p4_barcharts/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/ck650.netlify.com/post/p4_barcharts/</guid>
+      <guid>/post/p4_barcharts/</guid>
       <description>library(Lahman) #a comprehensive dataset of MLB statisticslibrary(nflscrapR) #contains NFL data and a built-in API for scraping the most recent datalibrary(dplyr) #package for querying datalibrary(ggplot2) #one of the best packages for data visualizationlibrary(ggiraph) #extension that makes ggplot2 graphs interactiveBarchartsTo start, we’ll create a new query featuring the names and number of homeruns of players from players from 1980.
 df &amp;lt;- Teams %&amp;gt;%filter(yearID==1980)%&amp;gt;% #select rows with a yearID of 1980select(name,HR)%&amp;gt;% #select only the name and HR (home run) columnsarrange(HR) #sort the data by number of home runsBefore we go on, let’s check the class of our df$name, using the following command:</description>
     </item>
     
     <item>
       <title>Visualizing Data Part 5: Line Charts</title>
-      <link>/ck650.netlify.com/post/p5_linecharts/</link>
+      <link>/post/p5_linecharts/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/ck650.netlify.com/post/p5_linecharts/</guid>
+      <guid>/post/p5_linecharts/</guid>
       <description>library(Lahman) #a comprehensive dataset of MLB statisticslibrary(nflscrapR) #contains NFL data and a built-in API for scraping the most recent datalibrary(dplyr) #package for querying datalibrary(ggplot2) #one of the best packages for data visualizationlibrary(ggiraph) #extension that makes ggplot2 graphs interactiveLine chartsNext, we want to create a time-series chart of Aaron Rodgers’ touchdowns per season, but this could be very difficult since Aaron Rodgers’ data is spread out across multiple tables in the nflscrapR package, each table representing a different season.</description>
     </item>
     

@@ -1,5 +1,5 @@
 title = "Chris Kozak's Data Science Blog"
-baseURL = "ck650.netlify.com/"
+baseURL = "https://ck650.netlify.com/"
 languageCode = "en-us"
 theme = "gohugo-theme-ananke"
 
