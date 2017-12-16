@@ -1,7 +1,6 @@
 ---
 title: 'Visualizing Data Part 4: Barcharts'
 author: "Chris Kozak"
-date: "October 15, 2017"
 output: html_document
 ---
 

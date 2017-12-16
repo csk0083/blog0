@@ -3,68 +3,68 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>ck650.netlify.com/post/</loc>
+    <loc>/ck650.netlify.com/post/</loc>
     <lastmod>2017-03-02T12:00:00-05:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>ck650.netlify.com/about/</loc>
+    <loc>/ck650.netlify.com/about/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>ck650.netlify.com/categories/</loc>
+    <loc>/ck650.netlify.com/categories/</loc>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>ck650.netlify.com/</loc>
+    <loc>/ck650.netlify.com/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>ck650.netlify.com/contact/</loc>
+    <loc>/ck650.netlify.com/contact/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>ck650.netlify.com/tags/</loc>
+    <loc>/ck650.netlify.com/tags/</loc>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>ck650.netlify.com/post/p1_boxdensity/</loc>
+    <loc>/ck650.netlify.com/post/p1_boxdensity/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>ck650.netlify.com/post/p2_histograms/</loc>
+    <loc>/ck650.netlify.com/post/p2_histograms/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>ck650.netlify.com/post/p3_scatterplots/</loc>
+    <loc>/ck650.netlify.com/post/p3_scatterplots/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>ck650.netlify.com/post/p4_barcharts/</loc>
+    <loc>/ck650.netlify.com/post/p4_barcharts/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>ck650.netlify.com/post/p5_linecharts/</loc>
+    <loc>/ck650.netlify.com/post/p5_linecharts/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
